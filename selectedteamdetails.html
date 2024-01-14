@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Premeire League</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        #welcome{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            color:aqua;
+            text-align: center;
+            background-color:blue;
+            animation: welcome 5s infinite;
+            
+        }
+        @keyframes welcome {
+            0%{
+                color:orange;
+            }
+            50%{
+                color:white;
+                font-weight: 200;
+            }
+            100%{
+                color:green;
+                font-weight: 250;
+            }
+            
+        }
+        #slideshow{
+            position: relative;
+        }
+        #sponsor{
+            font-style: italic;
+            position: relative;
+            text-align: center;
+            display: inline;
+        }
+        #logo{
+            display: inline;
+        }
+        .slides {
+            position: sticky;
+    animation: fade 2s infinite;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  button{
+    border:none;
+    color:white;
+    background-color: blueviolet;
+    padding:15px;
+    border-radius: 50%;
+    font-size: large;
+    justify-content: end;
+    margin-left: 100px;
+    margin-bottom: 40px;
+  }
+  #input{
+    height: 40px;
+    width:200px;
+    border-radius: 20%;
+    margin-left: 100px;
+  }
+  #header{
+    background-image: linear-gradient(to bottom right ,blue,green,yellow);
+
+  }
+  #footer{
+    background-image: linear-gradient(to right,orange,white,green);
+    display:flex;
+    justify-content: space-around;
+  }
+  .connect{
+    color:black;
+    text-decoration: none;
+    padding: 8px;
+
+  }
+  #actions{
+    display: flex;
+    flex-direction: column;
+    
+
+  }
+  #main{
+    background-image: linear-gradient(to right,blue,green,red );
+  }
+  .logoblock{
+    color:white;
+  }
+  #logospace{
+    justify-content: space-around;
+  }
+  #playercards{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-around;
+  }
+  .playercard{
+    height:400px;
+    width:200px;
+    box-shadow: 2px 2px 2px greenyellow;
+    background-color: aqua;
+  }
+  .playercard:hover{
+    box-shadow: 5px 5px 5px burlywood;
+    background-color: chartreuse;
+  
+  }
+
+    </style>
+    <script src="https://kit.fontawesome.com/cf02792455.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header id="header">
+        <img id='logo' src="images/logo.jpg" alt="logo" height="200px" width="200px"> 
+        <button id="button1" type="button"  >ADD TEAM</button>
+        <button id="button2" type="button"  >ADD PLAYER</button>
+        <button id="button3" type="button"  >HOME</button>
+        <input id="input" type="text" placeholder="ENTER SHORTFORM OF TEAM" value="">
+        <button id="search" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+        <h1 id="welcome">IPL WELCOMES YOU WITH PRIDE</h1>
+        <h3 id="sponsor">Sponsored by XYZ</h3>
+    </header>
+    <main id="main">
+        <h1 style="color:white;margin-left: 30px;">TOP PLAYERS OF THE TEAM</h1>
+        <div id="logospace">
+
+        </div>
+        <div id="playercards">
+
+        </div>
+    </main>
+
+
+
+    <footer id="footer">
+        <div>
+           <img src="images/jaihind.jpg">
+        </div>
+        <div style="display: flex;flex-direction: column; text-decoration: none;">
+           <h3>connect with  us </h3>
+          <a href="#" class="connect"> <img src="images/insta.png" height="20px" width="20px">INSTAGRAM</a>
+          <a href="#" class="connect"><img src="images/facebook.png" height="20px" width="20px">FACEBOOK</a>
+          <a href="#"class="connect"><img src="images/twitter.png"height="20px" width="20px">TWITTER</a>
+        </div>
+        <div id="actions">
+           <h3>ACTIONS</h3>
+           <a class="connect" href="index.html">HOME</a>
+           <a class="connect" href="addplayer.html">ADD A PLAYER</a>
+           <a class="connect" href="addteam.html">ADD TEAM</a>
+        </div>
+   
+       </footer>
+       <script src="datastorage.js"></script>
+       <script>
+
+const tdata=localStorage.getItem("teamdata");
+    const rtdata=JSON.parse(tdata);
+
+    const pdata=localStorage.getItem("playerdata");
+    const rpdata=JSON.parse(pdata);
+    var team_short=window.location.search.split('=')[1];
+    //console.log(team_short);
+    var logospace=document.getElementById('logospace');
+    var playercards=document.getElementById('playercards');
+    for(let i=0;i<rtdata.length;i++){
+        if(rtdata[i].teamshortname===team_short){
+        logospace.append(addlogo(rtdata[i].teamlogo,rtdata[i].teamname,rtdata[i].win));
+        }
+    }
+    function addlogo(logo,name,win){
+       var logoblock=document.createElement("div");
+       logoblock.classList.add('logoblock');
+       var logoimg=document.createElement('img');
+       logoimg.src=logo;
+       logoimg.setAttribute('height','300px');
+       logoimg.setAttribute("width",'50%');
+       logoblock.append(logoimg);
+       var teamname=document.createElement('h1');
+       teamname.textContent=name;
+       var nwin=document.createElement('h2');
+       nwin.textContent="NUMBER OF WINS :"
+       var wins=document.createElement('h2');
+       wins.textContent=win;
+       nwin.append(wins);
+       logoblock.append(teamname);
+       logoblock.append(nwin); 
+
+       return logoblock;
+
+    }
+    for(let j=0;j<rpdata.length;j++){
+        if(rpdata[j].stn===team_short){
+            playercards.append(createplayers(rpdata[j].id,rpdata[j].pic,rpdata[j].role,rpdata[j].position));
+        }
+    }
+     function createplayers(id,pic,role,position){
+        var playercard=document.createElement('div');
+        playercard.classList.add('playercard');
+        var ppic=document.createElement('img');
+        ppic.src=pic;
+        ppic.setAttribute('height','300px');
+        ppic.setAttribute('width','200px');
+
+        var rol=document.createElement('h3');
+        rol.textContent=role;
+
+        var pos=document.createElement('h2');
+        pos.textContent=position;
+        playercard.append(ppic);
+        playercard.append(pos);
+        playercard.append(rol);
+        var playerbut=document.createElement('button');
+        playerbut.append(playercard);
+        playerbut.addEventListener("click",function(){location.href='aboutplayers.html?player_id='+id});
+        return playerbut;
+
+     }
+     var searchbut=document.getElementById('search');
+searchbut.addEventListener('click',function(){
+    var valent=document.getElementById('input').value;
+    var val=valent.toUpperCase();
+    location.href='selectedteamdetails.html?team_name='+val;
+});
+
+document.getElementById('button1').addEventListener('click',function(){location.href='addteam.html'});
+    document.getElementById('button2').addEventListener('click',function(){location.href='addplayer.html'});
+    document.getElementById('button3').addEventListener('click',function(){location.href='index.html'});
+    
+
+
+       </script>
+    
+</body>
+</html>

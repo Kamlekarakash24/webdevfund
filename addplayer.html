@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Premerie League</title>
+    <style>
+         *{
+            margin:0px;
+            padding:0px;
+        }
+        #welcome{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            color:aqua;
+            text-align: center;
+            background-color:blue;
+            animation: welcome 5s infinite;
+            
+        }
+        @keyframes welcome {
+            0%{
+                color:orange;
+            }
+            50%{
+                color:white;
+                font-weight: 200;
+            }
+            100%{
+                color:green;
+                font-weight: 250;
+            }
+            
+        }
+        #slideshow{
+            position: relative;
+        }
+        #sponsor{
+            font-style: italic;
+            position: relative;
+            text-align: center;
+            display: inline;
+        }
+        #logo{
+            display: inline;
+        }
+        .slides {
+            position: sticky;
+    animation: fade 2s infinite;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  button{
+    border:none;
+    color:white;
+    background-color: blueviolet;
+    padding:15px;
+    border-radius: 50%;
+    font-size: large;
+    justify-content: end;
+    margin-left: 100px;
+    margin-bottom: 40px;
+  }
+  #input{
+    height: 40px;
+    width:200px;
+    border-radius: 20%;
+    margin-left: 100px;
+  }
+  #header{
+    background-image: linear-gradient(to bottom right ,blue,green,yellow);
+
+  }
+  #footer{
+    background-image: linear-gradient(to right,orange,white,green);
+    display:flex;
+    justify-content: space-around;
+  }
+  .connect{
+    color:black;
+    text-decoration: none;
+    padding: 8px;
+
+  }
+  #actions{
+    display: flex;
+    flex-direction: column;
+    
+
+  }
+  #main{
+    background-image: linear-gradient(to right,blue,green,red );
+  }
+  #form{
+    margin-left: 200px;
+    font-size: x-large;
+    color:greenyellow
+    
+  }
+  input{
+    height:50px;
+    width:200px;
+
+  }
+    </style>
+    <script src="https://kit.fontawesome.com/cf02792455.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header id="header">
+        <img id='logo' src="images/logo.jpg" alt="logo" height="200px" width="200px"> 
+        <button id="button1" type="button"  >ADD TEAM</button>
+        <button id="button2" type="button"  >ADD PLAYER</button>
+        <button id="button3" type="button"  >HOME</button>
+        <input id="input" type="text" placeholder="ENTER SHORTFORM OF TEAM" value="">
+        <button id="search" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+        <h1 id="welcome">IPL WELCOMES YOU WITH PRIDE</h1>
+        <h3 id="sponsor">Sponsored by XYZ</h3>
+    </header>
+    <main id="main">
+      <form id="form" onsubmit="addplayer()">
+        IMAGE            :<input type="text" id="logo" placeholder="PHOTO URL"><br>
+        PLAYER NAME      :<input type="text" id="pname" placeholder="PLAYER NAME"><br>
+        TEAM NAME        :<input type="text" id="tname" placeholder="TEAM NAME"><br>
+        PRICE            :<input type="text" id="price" placeholder="PRICE "><br>
+        ROLE             :<input type="text" id="role" placeholder="ROLE"><br>
+        POSITION         :<input type="text" id="position" placeholder="POSITION"><br>
+        TEAM ACRONYM     :<input type="text" id="tsn" placeholder="ACRONYM OF TEAM"><br>
+        <input type="submit" value="submit">
+
+
+
+      </form>
+
+    </main>
+
+
+    <footer id="footer">
+        <div>
+           <img src="images/jaihind.jpg">
+        </div>
+        <div style="display: flex;flex-direction: column; text-decoration: none;">
+           <h3>connect with  us </h3>
+          <a href="#" class="connect"> <img src="images/insta.png" height="20px" width="20px">INSTAGRAM</a>
+          <a href="#" class="connect"><img src="images/facebook.png" height="20px" width="20px">FACEBOOK</a>
+          <a href="#"class="connect"><img src="images/twitter.png"height="20px" width="20px">TWITTER</a>
+        </div>
+        <div id="actions">
+           <h3>ACTIONS</h3>
+           <a class="connect" href="index.html">HOME</a>
+           <a class="connect" href="addplayer.html">ADD A PLAYER</a>
+           <a class="connect" href="addteam.html">ADD TEAM</a>
+        </div>
+   
+       </footer>
+       <script src="datastorage.js"></script>
+   <script>
+     var searchbut=document.getElementById('search');
+searchbut.addEventListener('click',function(){
+    var valent=document.getElementById('input').value;
+    var val=valent.toUpperCase();
+    location.href='selectedteamdetails.html?team_name='+val;
+});
+function addplayer(){
+    var playerpic=document.getElementById('logo').value;
+    var team=document.getElementById('tname')
+    var player_name=document.getElementById('pname').value;
+    var price=document.getElementById('price').value;
+    var tsn=document.getElementById('tsn').value;
+    var role=document.getElementById('role').value;
+    var position=document.getElementById('position').value;
+
+    var playerdata={'name':playerpic,'teamn':team,'price':price,'teamshortname':tsn,"role":role,'position':position};
+    var newplayer=JSON.stringfy(playerdata);
+    localStorage.setItem('playerdata',newplayer);
+    
+    playersdatasets.push(newteamdata);
+
+    
+}
+
+    document.getElementById('button1').addEventListener('click',function(){location.href='addteam.html'});
+    document.getElementById('button2').addEventListener('click',function(){location.href='addplayer.html'});
+    document.getElementById('button3').addEventListener('click',function(){location.href='index.html'});
+
+
+
+   </script>
+
+    
+</body>
+</html>
